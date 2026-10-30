@@ -1,0 +1,38 @@
+{
+  "name": "hamstertip",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:browser": "node tests/browser-validation.mjs",
+    "render:share": "node scripts/render-share.mjs"
+  },
+  "dependencies": {
+    "@coinbase/wallet-sdk": "^4.3.7",
+    "@fontsource-variable/dm-sans": "^5.2.8",
+    "@tanstack/react-query": "5.105.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "viem": "2.57.13",
+    "wagmi": "3.7.9"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "typescript": "~5.9.3",
+    "vite": "8.3.5",
+    "vitest": "^4.1.0",
+    "playwright": "1.64.1",
+    "@axe-core/playwright": "4.14.0"
+  }
+}

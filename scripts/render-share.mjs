@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+import {readFile} from 'node:fs/promises';
+const art = (await readFile('public/hamster.svg')).toString('base64');
+const favicon=(await readFile('public/favicon.svg')).toString('base64');
+const font=(await readFile(new URL(import.meta.resolve('@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2')))).toString('base64');
+const html=`<!doctype html><html><head><style>@font-face{font-family:DM;src:url(data:font/woff2;base64,${font});font-weight:100 1000}*{box-sizing:border-box}body{margin:0;width:1200px;height:630px;background:#f7f5ee;color:#302c23;font-family:DM,sans-serif;padding:60px}.logo{display:flex;align-items:center;gap:14px;font-size:32px;font-weight:700}.logo img{width:48px;height:48px}h1{font-size:70px;line-height:1.08;letter-spacing:-3px;margin:70px 0 24px;position:relative;z-index:1}h1 span{color:#83521c}.art{position:absolute;right:6px;top:140px;width:540px;height:405px}p{font-size:23px;color:#6b6255;width:530px;line-height:1.5}.network{position:absolute;bottom:48px;display:flex;align-items:center;gap:10px;font-size:18px;color:#456039}.dot{display:inline-block;width:9px;height:9px;background:#456039;border-radius:50%}</style></head><body><div class="logo"><img src="data:image/svg+xml;base64,${favicon}">HamsterTip.</div><h1>Tip ETH.<br><span>Spread the squeek.</span></h1><p>A little on-chain love for the<br>Squeekchain hamster economy.</p><img class="art" src="data:image/svg+xml;base64,${art}"><div class="network"><span class="dot"></span>Ethereum Sepolia · Test ETH</div></body></html>`;
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
+await page.setContent(html);await page.evaluate(()=>document.fonts.ready);
+await page.screenshot({path:'public/og-image.png'});await browser.close();
+console.log('Rendered public/og-image.png at 1200 × 630');
